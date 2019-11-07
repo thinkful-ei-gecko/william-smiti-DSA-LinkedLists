@@ -123,14 +123,122 @@ function main() {
   SLL.insertLast('Helo');
   SLL.insertLast('Husker');
   SLL.insertLast('Starbuck');
-
-
   SLL.insertLast('Tauhida');
-  SLL.remove('squirrel');
+  //SLL.remove('squirrel');
   SLL.insertBefore('Boomer', 'Athena');
   SLL.insertAfter('Helo', 'Hotdog');
   SLL.insertAt(3, 'Kat');
-  SLL.remove('Tauhida');
-  console.log(JSON.stringify(SLL));
+  SLL.remove('Tauhida');  
+  return SLL;
 }
-main();
+
+
+function display(linklist){ 
+  return JSON.stringify(linklist);
+}
+
+console.log(display(main()));
+
+
+function size(linklist){
+  let currNode = linklist.head;
+  let pos = 0;
+  while(currNode !== null){
+    currNode = currNode.next;
+    pos++;
+  }
+  return pos;
+}
+
+//console.log(size(main()));
+
+function isEmpty(linklist){
+  let currNode = linklist.head;
+  if(currNode === null){
+    return true;
+  }
+  return false;
+
+}
+
+//console.log(isEmpty(main()));
+
+function findPrevious(linklist, node){
+  let currNode = linklist.head;
+  let prevNode = linklist.head;
+  
+  while((currNode !== null)&&(prevNode.value !== node)){
+    prevNode  = currNode;
+    currNode = currNode.next;
+  }
+  
+  //console.log(JSON.stringify(prevNode), JSON.stringify(currNode))
+  return prevNode.value;
+}
+//console.log(findPrevious(main(), 'Boomer'));
+
+function findLast(linklist){
+  let currNode = linklist.head;
+  let prevNode = linklist.head;
+  while(currNode !== null){
+    prevNode = currNode;
+    currNode = currNode.next;
+  }
+  return prevNode;
+}
+
+//console.log(findLast(main()));
+
+//4.
+//The problem that the function is trying solve is eliminate the dulicates in the linked list.
+//The time complexity is O(n) because it has iterate over each n node to compares the current values
+//with the next values until meets its condition.
+
+// function reverseList(linkedList){    
+//   let currNode = linkedList.head;
+//   let newtail = null;                 
+//   let afterNode = currNode.next;
+
+//   while(currNode !== null){
+//      newtail = currNode; //head
+//      currNode
+//   }
+// }
+
+function thirdFromLast(linkedlist) {
+  let currNode = linkedlist.head;
+  let size = 0;
+  while(currNode !== null) {
+    currNode = currNode.next;
+    size++;
+  }
+
+  let thirdFromLast = size - 3;
+  let counter = 0;
+  let tempNode = linkedlist.head;
+  while(tempNode !== null) {
+    tempNode = tempNode.next;
+    counter++;
+    if(counter === thirdFromLast) {
+      return tempNode;
+    }
+  }
+}
+
+//console.log(JSON.stringify(thirdFromLast(main())));
+
+
+function middleOfthelist(linkedList){
+  let currNode = linkedList.head;
+  let newNode = currNode.next
+  while(newNode !== null){
+    //currNode = currNode.next;
+    newNode = newNode.next.next;
+    return JSON.stringify(newNode.value);
+   
+  } 
+  
+  
+}
+
+console.log(middleOfthelist(main()));
