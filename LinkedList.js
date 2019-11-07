@@ -47,7 +47,68 @@ class LinkedList {
     prevNode.next = currNode.next;
   }
 
-  find() {
-
+  find(value) {
+    if(!this.head) {
+      return null;
+    }
+    let tempNode = this.head;
+    while((tempNode.next !== null) && (tempNode.value !== value)) {
+      tempNode = tempNode.next;
+    }
+    if(tempNode === null) {
+      console.log('Item not found');
+      return;
+    }
+    return tempNode;
   }
+
+  insertBefore(findValue, insertValue) {
+    if(!this.head) {
+      return null;
+    }
+
+    let currNode = this.head;
+    let prevNode = this.head;
+
+    while((currNode !== null) && (currNode.value !== findValue)) {
+      prevNode = currNode;
+      currNode = currNode.next;
+    }
+
+    let newNode = new _Node(insertValue, currNode);
+    prevNode.next = newNode;
+  }
+
+  insertAfter(findValue, insertValue) {
+    if(!this.head) {
+      return null;
+    }
+
+    let currNode = this.head;
+    let prevNode = this.head;
+    while((currNode !== null) && (prevNode.value !== findValue)) {
+      prevNode = currNode;
+      currNode = currNode.next;
+    }
+
+    let newNode = new _Node(insertValue, currNode);
+    prevNode.next = newNode;
+  }
+
+  insertAt()
 }
+
+function main() {
+  let SLL = new LinkedList();
+  SLL.insertFirst('Apollo');
+  SLL.insertLast('Boomer');
+  SLL.insertLast('Helo');
+  SLL.insertLast('Husker');
+  SLL.insertLast('Starbuck');
+  SLL.insertLast('Tauhida');
+  console.log(SLL);
+
+  SLL.remove('squirrel');
+  console.log(SLL);
+}
+main();
