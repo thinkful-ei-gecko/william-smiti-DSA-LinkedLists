@@ -124,7 +124,7 @@ function main() {
   SLL.insertLast('Husker');
   SLL.insertLast('Starbuck');
   SLL.insertLast('Tauhida');
-  //SLL.remove('squirrel');
+  // SLL.remove('squirrel');
   SLL.insertBefore('Boomer', 'Athena');
   SLL.insertAfter('Helo', 'Hotdog');
   SLL.insertAt(3, 'Kat');
@@ -133,15 +133,14 @@ function main() {
 }
 
 
-function display(linklist){ 
-  return JSON.stringify(linklist);
+// QUESTION 3
+function display(linkList){ 
+  return JSON.stringify(linkList);
 }
+// console.log(display(main()));
 
-console.log(display(main()));
-
-
-function size(linklist){
-  let currNode = linklist.head;
+function size(linkList){
+  let currNode = linkList.head;
   let pos = 0;
   while(currNode !== null){
     currNode = currNode.next;
@@ -149,96 +148,93 @@ function size(linklist){
   }
   return pos;
 }
-
 //console.log(size(main()));
 
-function isEmpty(linklist){
-  let currNode = linklist.head;
+function isEmpty(linkList){
+  let currNode = linkList.head;
   if(currNode === null){
     return true;
   }
   return false;
-
 }
-
 //console.log(isEmpty(main()));
 
-function findPrevious(linklist, node){
-  let currNode = linklist.head;
-  let prevNode = linklist.head;
-  
-  while((currNode !== null)&&(prevNode.value !== node)){
-    prevNode  = currNode;
-    currNode = currNode.next;
-  }
-  
-  //console.log(JSON.stringify(prevNode), JSON.stringify(currNode))
-  return prevNode.value;
-}
-//console.log(findPrevious(main(), 'Boomer'));
-
-function findLast(linklist){
-  let currNode = linklist.head;
-  let prevNode = linklist.head;
-  while(currNode !== null){
+function findPrevious(linkList, value) {
+  let prevNode = linkList.head;
+  let currNode = linkList.head;
+  while((currNode !== null) && (currNode.value !== value)) {
     prevNode = currNode;
     currNode = currNode.next;
   }
   return prevNode;
 }
+// console.log(findPrevious(main(), 'Starbuck'));
 
-//console.log(findLast(main()));
+function findLast(linkList) {
+  let currNode = linkList.head;
+  while(currNode.next !== null) {
+    currNode = currNode.next;
+  }
+  return currNode;
+}
+// console.log(findLast(main()));
+
 
 //4.
 //The problem that the function is trying solve is eliminate the dulicates in the linked list.
-//The time complexity is O(n) because it has iterate over each n node to compares the current values
-//with the next values until meets its condition.
+// The time complexity is O(n^2) because it has a nested while loop.
 
-// function reverseList(linkedList){    
-//   let currNode = linkedList.head;
-//   let newtail = null;                 
-//   let afterNode = currNode.next;
 
-//   while(currNode !== null){
-//      newtail = currNode; //head
-//      currNode
-//   }
-// }
+//5. Reverse a List
+function reverseList(linkList) {
+  let currNode = linkList.head;
+  let prevNode = null;
+  let nextNode;
 
-function thirdFromLast(linkedlist) {
-  let currNode = linkedlist.head;
-  let size = 0;
   while(currNode !== null) {
+    nextNode = currNode.next;
+    currNode.next = prevNode;
+    prevNode = currNode;
+    currNode = nextNode;
+  }
+  return prevNode;
+}
+// console.log(reverseList(main()));
+
+//6. 3rd from the end
+function thirdFromLast(linkList) {
+  let currNode = linkList.head;
+  while(currNode.next.next.next !== null) {
     currNode = currNode.next;
-    size++;
   }
-
-  let thirdFromLast = size - 3;
-  let counter = 0;
-  let tempNode = linkedlist.head;
-  while(tempNode !== null) {
-    tempNode = tempNode.next;
-    counter++;
-    if(counter === thirdFromLast) {
-      return tempNode;
-    }
-  }
+  return currNode;
 }
+// console.log(thirdFromLast(main()));
 
-//console.log(JSON.stringify(thirdFromLast(main())));
-
-
-function middleOfthelist(linkedList){
+//7. Middle of a list
+function middleOfList(linkedList) {
+  let nextNode = linkedList.head;
   let currNode = linkedList.head;
-  let newNode = currNode.next
-  while(newNode !== null){
-    //currNode = currNode.next;
-    newNode = newNode.next.next;
-    return JSON.stringify(newNode.value);
-   
-  } 
-  
-  
-}
 
-console.log(middleOfthelist(main()));
+  while((nextNode !== null) && (nextNode.next !== null)) {
+    nextNode = nextNode.next.next;
+    currNode = currNode.next;
+  }
+  return currNode;
+}
+// console.log(middleOfList(main()));
+
+//8. Cycle in a list
+function cycleList(linkList) {
+  let fastPointer = linkList.head.next;
+  let slowPointer = linkList.head;
+  while(fastPointer !== null && fastPointer.next !== null && slowPointer !== null) {
+    if(fastPointer === slowPointer) {
+      return true;
+    }
+    fastPointer = fastPointer.next.next;
+    slowPointer = slowPointer.next;
+  }
+  return false;
+}
+// console.log(cycleList(main()));
